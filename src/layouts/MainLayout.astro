@@ -3,7 +3,6 @@ import "../styles/global.css";
 
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
-import Subscribe from "../components/Subscribe.astro";
 import { withBase } from "../utils/helpers";
 const rssHref = Astro.site
   ? new URL(withBase("/rss.xml"), Astro.site).toString()
@@ -18,7 +17,7 @@ type LayoutProps = {
 const {
   pageTitle,
   activePage,
-  showSubscribeForm = true,
+  showSubscribeForm = false,
 } = Astro.props as LayoutProps;
 ---
 
@@ -48,7 +47,6 @@ const {
     <main class="max-w-3xl mx-auto min-h-screen">
       <Nav activePage={activePage} />
       <slot />
-      {showSubscribeForm && <Subscribe class="my-12 w-full" />}
       <Footer />
     </main>
   </body>

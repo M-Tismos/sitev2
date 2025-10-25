@@ -10,58 +10,118 @@ import heroImage from "../assets/images/pixeltrue-space-discovery.svg";
 import ArrowRight from "../icons/ArrowRight.astro";
 
 const allPosts = (await getCollection("blogs")).sort(sortItemsByDateDesc);
+
+// Static starter list d'automatisations (placeholders).
+// À terme, on pourra migrer ça vers une collection /content/automations/*.md
+const automations = [
+  {
+    id: "auto-deploy",
+    title: "Déploiement automatique",
+    description:
+      "Pipeline GitHub Actions prêt à l'emploi pour déployer vos sites et services en quelques minutes.",
+    href: "/automations/deploy"
+  },
+  {
+    id: "issue-triage",
+    title: "Triage d'issues",
+    description:
+      "Script et workflow pour classer et taguer automatiquement les issues selon des règles personnalisées.",
+    href: "/automations/issue-triage"
+  },
+  {
+    id: "notifs-ops",
+    title: "Notifications d'incidents",
+    description:
+      "Automatisation des alertes et notifications pour centraliser les incidents et réduire le temps de réaction.",
+    href: "/automations/notifications"
+  }
+];
 ---
 
 <MainLayout
   activePage="home"
-  pageTitle={siteConfig.title + " | An Astro Personal Blog Template"}
+  pageTitle={siteConfig.title + " | Automatisations & Workflows"}
 >
-  <div
-    class="jumbo-banner flex flex-col sm:flex-row sm:items-center sm:justify-between w-full px-4 my-12 gap-6"
-  >
+  <!-- HERO: orienté automatisations -->
+  <div class="jumbo-banner flex flex-col sm:flex-row sm:items-center sm:justify-between w-full px-4 my-12 gap-6">
     <div class="w-full sm:w-fit sm:max-w-1/2">
-      {
-        siteConfig.hero?.eyebrowText && (
-          <span class="tag rounded-full text-xs px-2 py-0 border border-gray-500 kanit-light">
-            {siteConfig.hero?.eyebrowText}
-          </span>
-        )
-      }
-      <h1 class="sigmar-ff leading-tight text-balance sm:pt-0!">
-        {siteConfig.hero?.title}
-      </h1>
+      <span class="tag rounded-full text-xs px-2 py-0 border border-gray-500 kanit-light">Automations</span>
+      <h1 class="sigmar-ff leading-tight text-balance sm:pt-0!">Automatisations qui libèrent votre temps</h1>
       <p class="kanit-regular text-balance text-xs sm:text-base">
-        {siteConfig.hero?.text}
+        Workflows, scripts et templates pour automatiser les tâches répétitives — prêts à cloner et à adapter. Découvrez des exemples concrets, des guides pas‑à‑pas et des modèles prêts à l'emploi.
       </p>
-      <div
-        class="flex flex-wrap items-center text-xs sm:text-base gap-x-2 gap-y-8 mt-3 sm:mt-12"
-      >
-        {
-          siteConfig.hero?.actions?.map((action, index) => (
-            <Button
-              href={action.href}
-              class={index === 0 ? "space-btn-filled" : "space-btn-outlined"}
-            >
-              {action.text}
-            </Button>
-          ))
-        }
+      <div class="flex flex-wrap items-center text-xs sm:text-base gap-x-2 gap-y-8 mt-3 sm:mt-12">
+        <Button href="#automations" class="space-btn-filled">Voir les automations</Button>
+        <Button href="https://github.com/M-Tismos" class="space-btn-outlined">Contribuer sur GitHub</Button>
       </div>
     </div>
+
     <div class="w-full sm:w-fit sm:max-w-1/2">
-      <!-- {siteConfig.hero?.image && <Image src={siteConfig.hero?.image?.src} alt={siteConfig.hero?.image?.alt || ""} inferSize={true} />} -->
-      <Image
-        class="cover-img"
-        src={heroImage}
-        alt={"Astronaut in space"}
-        width={400}
-        height={300}
-      />
+      <Image class="cover-img" src={heroImage} alt={"Automations illustration"} width={400} height={300} />
     </div>
   </div>
+
+  <!-- KPI / bandeau confiance -->
+  <div class="w-full flex justify-center mb-8 px-4">
+    <div class="max-w-3xl grid grid-cols-3 gap-4 text-center">
+      <div>
+        <div class="text-2xl font-bold">30+</div>
+        <div class="text-xs">Automatisations & templates</div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold">70%</div>
+        <div class="text-xs">Tâches répétitives réduites</div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold">5 min</div>
+        <div class="text-xs">Démarrage moyen</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section automations -->
+  <section id="automations" class="page-content mb-12 px-4">
+    <h2 class="sigmar-ff text-balance pt-0! pb-6!">Automations en vedette</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-full">
+      {
+        automations.map((a) => (
+          <article class="border rounded-lg p-4 flex flex-col justify-between h-full">
+            <div>
+              <h3 class="text-lg font-semibold">{a.title}</h3>
+              <p class="text-sm mt-2">{a.description}</p>
+            </div>
+            <div class="mt-4">
+              <Button href={a.href} class="space-btn-outlined">Voir <ArrowRight class="w-4 h-4 fill-current ml-2" /></Button>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="page-content mb-12 px-4">
+    <h2 class="sigmar-ff text-balance pt-0! pb-6!">Comment ça marche</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-full">
+      <div class="p-4">
+        <h4 class="font-semibold">1. Choisissez un template</h4>
+        <p class="text-sm mt-2">Parcourez les automations, choisissez celle qui correspond à votre besoin.</p>
+      </div>
+      <div class="p-4">
+        <h4 class="font-semibold">2. Adaptez</h4>
+        <p class="text-sm mt-2">Modifiez les paramètres et scripts pour l'intégrer à votre stack.</p>
+      </div>
+      <div class="p-4">
+        <h4 class="font-semibold">3. Déployez</h4>
+        <p class="text-sm mt-2">Activez le workflow et surveillez les résultats. Iterate & improve.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent stories (conserve la section blog existante) -->
   <div class="page-content">
     <div id="posts" class="flex flex-col items-center justify-center w-full">
-      <h2 class="sigmar-ff text-balance pt-0! pb-8!">Recent Stories</h2>
+      <h2 class="sigmar-ff text-balance pt-0! pb-8!">Articles récents</h2>
       <div class="flex flex-col gap-8 max-w-full text-left">
         {
           allPosts
@@ -69,9 +129,7 @@ const allPosts = (await getCollection("blogs")).sort(sortItemsByDateDesc);
             .map((post) => <PostCardPreview post={post} />)
         }
       </div>
-      <Button href={withBase("/blog")} class="space-btn-filled mt-8">
-        View All Posts <ArrowRight class="w-5 h-5 fill-current ml-4" />
-      </Button>
+      <Button href={withBase("/blog")} class="space-btn-filled mt-8">Voir tous les articles <ArrowRight class="w-5 h-5 fill-current ml-4" /></Button>
     </div>
   </div>
 </MainLayout>
